@@ -19,7 +19,11 @@ test_that('Scrape package page', {
     mockery::stub(read_package_page, 'get_package_url', get_package_url_mock('dplyr'))
     package_archive <- scrape_package_archive('dplyr')
 
-    expect_s3_class(package_archive, 'data.frame')
-
-    expect_named(package_archive, c('Name', 'LastModified'))
+    expect_df(
+        package_archive,
+        c(
+            'Name' = 'character',
+            'LastModified' = 'POSIXct'
+        )
+    )
 })
