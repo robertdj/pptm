@@ -42,5 +42,7 @@ scrape_package_archive <- function(package_name)
         tz = 'UTC'
     )
 
-    return(archive_table)
+    sorted_archive_table <- archive_table[order(archive_table$LastModified), ]
+
+    return(sorted_archive_table)
 }
