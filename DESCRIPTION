@@ -11,4 +11,7 @@ Imports:
     rvest,
     xml2
 Suggests:
-    testthat
+    here,
+    mockery,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
