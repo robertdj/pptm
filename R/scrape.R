@@ -23,9 +23,7 @@ scrape_package_archive <- function(package_name)
     raw_archive_table <- raw_archive_tables[[1]]
 
     expected_table_columns <- c('Name', 'Last modified')
-    all_expected_columns_present <- all(
-        intersect(names(raw_archive_table), expected_table_columns) == expected_table_columns
-    )
+    all_expected_columns_present <- all(expected_table_columns %in% names(raw_archive_table))
     stopifnot(all_expected_columns_present)
 
     package_name_regex <- paste0('^', package_name, '_[[:digit:]](\\.[[:digit:]]){,4}\\.tar\\.gz')
