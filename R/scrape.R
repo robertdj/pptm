@@ -38,6 +38,13 @@ parse_archive_table <- function(raw_archive_table)
 
 
 #' Scrape package archive
+#'
+#' Scrape package archive from CRAN.
+#'
+#' @param package_name Name of the package as a string.
+#'
+#' @return A dataframe with columns `Name` (package name and version) and `LastModified`.
+#'
 #' @export
 scrape_package_archive <- function(package_name)
 {
@@ -45,7 +52,5 @@ scrape_package_archive <- function(package_name)
     raw_archive_tables <-  rvest::html_table(package_page)
     stopifnot(length(raw_archive_tables) == 1)
 
-    raw_archive_table <- raw_archive_tables[[1]]
-
-    parse_archive_table(raw_archive_table)
+    parse_archive_table(raw_archive_tables[[1]])
 }
