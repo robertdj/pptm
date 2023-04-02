@@ -23,7 +23,7 @@ test_that('Scrape package page', {
         package_archive,
         c(
             'Name' = 'character',
-            'LastModified' = 'POSIXct'
+            'LastModified' = 'POSIXlt'
         )
     )
 })
