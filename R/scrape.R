@@ -36,7 +36,7 @@ scrape_package_archive <- function(package_name)
 
     names(archive_table) <- c('Name', 'LastModified')
 
-    archive_table[['LastModified']] <- strptime(
+    archive_table[['LastModified']] <- as.POSIXct(
         archive_table[['LastModified']],
         format = '%Y-%m-%d %H:%M',
         tz = 'UTC'
