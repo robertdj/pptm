@@ -15,4 +15,7 @@ test_that('Get version', {
 
     expect_true(is.na(package_versions$Parent[1]))
     expect_equal(package_versions$Package[1], package_versions$Parent[2])
+
+    targz_ext <- grepl('\\.tar\\.gz$', package_versions$URL)
+    expect_true(all(targz_ext))
 })
