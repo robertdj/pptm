@@ -9,7 +9,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports:
     pkg.peek,
-    rvest
+    rvest,
+    utils
 Suggests:
     here,
     mockery,
