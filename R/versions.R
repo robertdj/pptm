@@ -4,11 +4,11 @@ get_single_version <- function(package_name, date, package_dir = NULL, parent = 
 
     selected_package_version <- find_package_version(package_versions, date)
 
-    local_package_file <- download_package_version(selected_package_version)
-    package_dir <- dirname(local_package_file)
+    local_package_file <- download_package_version(selected_package_version, package_dir = package_dir)
 
     data.frame(
-        Package = selected_package_version$Name,
+        Package = pkg.peek::get_package_name(local_package_file),
+        Version = pkg.peek::get_package_version(local_package_file),
         Parent = parent,
         URL = selected_package_version$URL,
         Filename = local_package_file
