@@ -56,21 +56,18 @@ get_version <- function(package_name, date, r_version, package_dir = NULL)
     deps_versions <- get_version_with_deps(local_file, date, dirname(local_file))
 
     rbind(package_versions, deps_versions)
-    # data.frame(
-    #     'Package' = c('here', 'rprojroot'),
-    #     'Version' = c('1.0.1', '2.0.3'),
-    #     'Parent' = c(NA_character_, 'here'),
-    #     'URL' = c(
-    #         'https://cran.r-project.org/src/contrib/here_1.0.1.tar.gz',
-    #         'https://cran.r-project.org/src/contrib/rprojroot_2.0.3.tar.gz'
-    #     ),
-    #     'Filename' = file.path('/tmp/RtmpoMRkSP', c('here_1.0.1.tar.gz', 'rprojroot_2.0.3.tar.gz'))
-    # )
 }
 
 
-install_version <- function(package_name, date, r_version, package_dir = NULL)
+install_version <- function(versions)
 {
-    if (is.null(package_dir))
-        package_dir <- tempdir()
+    download_folder <- unique(dirname(versions$Filename))
+    stopifnot(length(download_folder) == 1)
+    stopifnot(grepl('/src/contrib$', download_folder))
+
+    local_cran <- substr(download_folder, 1, nzchar(download_folder) - 12)
+
+    tools::write_PACKAGES(local_cran)
+    top_packages <- subset(versions, is.na(versions$Parent))
+    install.packages(top_packages$Package, repos = paste0('file:', local_cran), type = 'source')
 }
