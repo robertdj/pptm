@@ -1,5 +1,21 @@
 test_that('Get version', {
+    # mockr::with_mock({
+    #     get_package_archive_url = get_package_archive_url_mock('here')
+    #     get_package_url = get_package_url_mock('here'))
+    #     package_versions <- get_version('here', date = as.POSIXct('2021-11-01'))
+    # })
+
     mockery::stub(read_package_page, 'get_package_url', get_package_url_mock('here'))
+    mockery::stub(read_package_archive_page, 'get_package_archive_url', get_package_archive_url_mock('here'))
+    # mockery::stub(read_package_page, 'get_package_url', get_package_url_mock('here'))
+    # mockery::stub(get_version, 'get_package_url', get_package_url_mock('here'), depth = 10)
+    # mockery::stub(
+    #     # read_package_archive_page,
+    #     get_version,
+    #     'get_package_archive_url',
+    #     get_package_archive_url_mock('here')
+    #     # depth = 10
+    # )
     package_versions <- get_version('here', date = as.POSIXct('2021-11-01'))
 
     expect_df(

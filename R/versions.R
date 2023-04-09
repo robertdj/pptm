@@ -8,7 +8,7 @@ get_single_version <- function(package_name, date, package_dir = NULL, parent = 
 
     data.frame(
         Package = pkg.peek::get_package_name(local_package_file),
-        Version = pkg.peek::get_package_version(local_package_file),
+        Version = as.character(pkg.peek::get_package_version(local_package_file)),
         Parent = parent,
         URL = selected_package_version$URL,
         Filename = local_package_file
