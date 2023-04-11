@@ -25,8 +25,19 @@ expect_df <- function(df, expected_cols)
 }
 
 
+get_package_archive_url_mock <- function(package_name)
+{
+    print('get_package_archive_url_mock')
+    local_package_file <- testthat::test_path('testdata', paste0(package_name, '_archive.html'))
+    stopifnot(file.exists(local_package_file))
+
+    return(local_package_file)
+}
+
+
 get_package_url_mock <- function(package_name)
 {
+    print('get_package_url_mock')
     local_package_file <- testthat::test_path('testdata', paste0(package_name, '.html'))
     stopifnot(file.exists(local_package_file))
 

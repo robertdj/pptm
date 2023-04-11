@@ -5,6 +5,7 @@
 #' @export
 get_package_archive_url <- function(package_name)
 {
+    print('get_package_archive_url')
     paste0('https://cran.r-project.org/src/contrib/Archive/', package_name)
 }
 
@@ -12,7 +13,6 @@ get_package_archive_url <- function(package_name)
 read_package_archive_page <- function(package_name)
 {
     package_url <- get_package_archive_url(package_name)
-    print(package_url)
     rvest::read_html(package_url)
 }
 
@@ -67,6 +67,7 @@ scrape_package_archive <- function(package_name)
 
 get_package_url <- function(package_name)
 {
+    print('get_package_url')
     paste0('https://cran.r-project.org/web/packages/', package_name, '/index.html')
 }
 
