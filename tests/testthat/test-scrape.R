@@ -6,7 +6,12 @@ test_that('Scrape package archive', {
 
     expect_df(
         package_archive,
-        c('Name' = 'character', 'LastModified' = 'POSIXct', 'URL' = 'character')
+        c(
+            'Name' = 'character', 
+            'LastModified' = 'POSIXct', 
+            'URL' = 'character', 
+            'PackageName' = 'character'
+        )
     )
 })
 
@@ -19,7 +24,12 @@ test_that('Scrape package page', {
 
     expect_df(
         currrent_package,
-        c('Name' = 'character', 'LastModified' = 'Date', 'URL' = 'character')
+        c(
+            'Name' = 'character', 
+            'LastModified' = 'Date', 
+            'URL' = 'character', 
+            'PackageName' = 'character'
+        )
     )
 })
 
@@ -33,6 +43,11 @@ test_that('Scrape package versions', {
 
     expect_df(
         package_versions,
-        c('Name' = 'character', 'LastModified' = 'POSIXct', 'URL' = 'character')
+        c(
+            'Name' = 'character', 
+            'LastModified' = 'POSIXct', 
+            'URL' = 'character', 
+            'PackageName' = 'character'
+        )
     )
 })

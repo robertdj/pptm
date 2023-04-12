@@ -61,7 +61,10 @@ scrape_package_archive <- function(package_name)
     raw_archive_tables <- rvest::html_table(package_page)
     stopifnot(length(raw_archive_tables) == 1)
 
-    parse_archive_table(raw_archive_tables[[1]])
+    parsed_archive_table <- parse_archive_table(raw_archive_tables[[1]])
+    parsed_archive_table$PackageName <- package_name
+
+    return(parsed_archive_table)
 }
 
 
@@ -100,7 +103,11 @@ parse_package_page <- function(package_page)
 scrape_package_page <- function(package_name)
 {
     package_page <- read_package_page(package_name)
-    parse_package_page(package_page)
+    parsed_package_page <- parse_package_page(package_page)
+
+    parsed_package_page$PackageName <- package_name
+
+    return(parsed_package_page)
 }
 
 
