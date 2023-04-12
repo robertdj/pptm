@@ -43,3 +43,35 @@ get_package_url_mock <- function(package_name)
 
     return(local_package_file)
 }
+
+
+#' Make a package from a DESCRIPTION file
+#'
+#' @param desc_path The path to a valid `DESCRIPTION` file.
+#' @param ... Arguments for [pkgbuild::build()]
+#'
+#' @details The package consists of a `DESCRIPTION` file and a `NAMESPACE` file.
+#' Note that the `pkgbuild` package is required.
+#'
+#' @return The path of the built package.
+create_empty_package <- function(desc_path, ...)
+{
+    stopifnot(file.exists(desc_path))
+
+    normalized_desc_path <- normalizePath(desc_path)
+    withr::with_tempdir(
+        {
+            file.copy(from = normalized_desc_path, to = '.')
+            file.create('NAMESPACE')
+            pkgbuild::build(...)
+        }
+    )
+}
+
+
+create_test_package <- function(package_name)
+{
+    desc_path <- testthat::test_path('testdata', package_name, 'DESCRIPTION')
+    print(desc_path)
+    create_empty_package(desc_path, quiet = TRUE)
+}
