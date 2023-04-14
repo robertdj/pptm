@@ -11,6 +11,7 @@ find_package_version <- function(package_archive, date)
 
 download_package_version <- function(package_archive, package_dir = NULL)
 {
+    print('download_package_version')
     stopifnot(nrow(package_archive) == 1)
 
     if (is.null(package_dir))
@@ -18,10 +19,6 @@ download_package_version <- function(package_archive, package_dir = NULL)
 
     if (!dir.exists(package_dir))
         dir.create(package_dir, recursive = TRUE)
-
-    # archive_file <- package_archive$Name
-    # package_name <- substr(archive_file, 1, gregexec('_', archive_file)[[1]] - 1)
-    # archive_url <- paste(get_package_archive_url(package_name), archive_file, sep = '/')
 
     local_file <- file.path(package_dir, package_archive$Name)
     if (!file.exists(local_file))
