@@ -10,10 +10,12 @@ RoxygenNote: 7.2.1
 Imports:
     pkg.peek,
     rvest,
+    tools,
     utils
 Suggests:
     here,
-    mockery,
+    pkgbuild,
+    mockthat,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Remotes: 
