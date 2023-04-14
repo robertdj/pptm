@@ -58,14 +58,19 @@ create_empty_package <- function(desc_path, ...)
 {
     stopifnot(file.exists(desc_path))
 
-    normalized_desc_path <- normalizePath(desc_path)
-    withr::with_tempdir(
-        {
-            file.copy(from = normalized_desc_path, to = '.')
-            file.create('NAMESPACE')
-            pkgbuild::build(...)
-        }
+    pkg_build_dir <- file.path(tempdir(), 'pptm_package_build_dir')
+    if (!dir.exists(pkg_build_dir))
+        dir.create(pkg_build_dir)
+    on.exit(unlink(pkg_build_dir, recursive = TRUE))
+
+    file.copy(from = desc_path, to = pkg_build_dir)
+    writeLines(
+        "exportPattern(\"^[^\\\\.]\")",
+        con = file.path(pkg_build_dir, 'NAMESPACE')
     )
+    # file.create(file.path(pkg_build_dir, 'NAMESPACE'))
+
+    pkgbuild::build(path = pkg_build_dir, ...)
 }
 
 
@@ -73,5 +78,5 @@ create_test_package <- function(package_name)
 {
     desc_path <- testthat::test_path('testdata', package_name, 'DESCRIPTION')
     print(desc_path)
-    create_empty_package(desc_path, quiet = TRUE)
+    create_empty_package(desc_path, quiet = TRUE, vignettes = FALSE)
 }
