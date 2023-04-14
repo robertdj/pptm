@@ -64,11 +64,7 @@ create_empty_package <- function(desc_path, ...)
     on.exit(unlink(pkg_build_dir, recursive = TRUE))
 
     file.copy(from = desc_path, to = pkg_build_dir)
-    writeLines(
-        "exportPattern(\"^[^\\\\.]\")",
-        con = file.path(pkg_build_dir, 'NAMESPACE')
-    )
-    # file.create(file.path(pkg_build_dir, 'NAMESPACE'))
+    file.create(file.path(pkg_build_dir, 'NAMESPACE'))
 
     pkgbuild::build(path = pkg_build_dir, ...)
 }
