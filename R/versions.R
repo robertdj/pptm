@@ -69,5 +69,5 @@ install_version <- function(versions)
 
     tools::write_PACKAGES(local_cran)
     top_packages <- subset(versions, is.na(versions$Parent))
-    install.packages(top_packages$Package, repos = paste0('file:', local_cran), type = 'source')
+    utils::install.packages(top_packages$Package, repos = paste0('file:', local_cran), type = 'source')
 }
