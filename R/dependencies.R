@@ -3,7 +3,7 @@ find_package_version <- function(package_archive, date)
     package_versions_after_date <- subset(package_archive, package_archive$LastModified >= date)
     stopifnot(nrow(package_versions_after_date) > 0)
 
-    last_package_version <- head(package_versions_after_date, n = 1)
+    last_package_version <- utils::head(package_versions_after_date, n = 1)
 
     return(last_package_version)
 }
