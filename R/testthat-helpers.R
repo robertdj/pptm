@@ -23,3 +23,56 @@ expect_df <- function(df, expected_cols)
 
     return(invisible(TRUE))
 }
+
+
+get_package_archive_url_mock <- function(package_name)
+{
+    print('get_package_archive_url_mock')
+    local_package_file <- testthat::test_path('testdata', paste0(package_name, '_archive.html'))
+    stopifnot(file.exists(local_package_file))
+
+    return(local_package_file)
+}
+
+
+get_package_url_mock <- function(package_name)
+{
+    print('get_package_url_mock')
+    local_package_file <- testthat::test_path('testdata', paste0(package_name, '.html'))
+    stopifnot(file.exists(local_package_file))
+
+    return(local_package_file)
+}
+
+
+#' Make a package from a DESCRIPTION file
+#'
+#' @param desc_path The path to a valid `DESCRIPTION` file.
+#' @param ... Arguments for [pkgbuild::build()]
+#'
+#' @details The package consists of a `DESCRIPTION` file and a `NAMESPACE` file.
+#' Note that the `pkgbuild` package is required.
+#'
+#' @return The path of the built package.
+create_empty_package <- function(desc_path, ...)
+{
+    stopifnot(file.exists(desc_path))
+
+    pkg_build_dir <- file.path(tempdir(), 'pptm_package_build_dir')
+    if (!dir.exists(pkg_build_dir))
+        dir.create(pkg_build_dir)
+    on.exit(unlink(pkg_build_dir, recursive = TRUE))
+
+    file.copy(from = desc_path, to = pkg_build_dir)
+    file.create(file.path(pkg_build_dir, 'NAMESPACE'))
+
+    pkgbuild::build(path = pkg_build_dir, ...)
+}
+
+
+create_test_package <- function(package_name)
+{
+    desc_path <- testthat::test_path('testdata', package_name, 'DESCRIPTION')
+    print(desc_path)
+    create_empty_package(desc_path, quiet = TRUE, vignettes = FALSE)
+}
