@@ -88,6 +88,9 @@ get_version <- function(package_name, date, r_version, package_dir = NULL)
 #' @export 
 install_version <- function(versions, ...)
 {
+    stopifnot(is.data.frame(versions))
+    stopifnot(colnames(versions) %in% c('Package', 'Version', 'Parent', 'URL', 'Filename'))
+
     download_folder <- unique(dirname(versions$Filename))
     stopifnot(length(download_folder) == 1)
     stopifnot(grepl('/src/contrib$', download_folder))
