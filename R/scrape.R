@@ -1,8 +1,3 @@
-#' Get URL of package archive
-#'
-#' @param package_name Name of the package, .e.g. `'dplyr`.
-#'
-#' @export
 get_package_archive_url <- function(package_name)
 {
     print('get_package_archive_url')
@@ -53,8 +48,6 @@ parse_archive_table <- function(raw_archive_table)
 #' @param package_name Name of the package as a string.
 #'
 #' @return A dataframe with columns `Name` (package name and version) and `LastModified`.
-#'
-#' @export
 scrape_package_archive <- function(package_name)
 {
     package_page <- read_package_archive_page(package_name)
@@ -118,8 +111,6 @@ scrape_package_page <- function(package_name)
 #' @param package_name Name of the package as a string.
 #'
 #' @return A dataframe with columns `Name` (package name and version) and `LastModified`.
-#'
-#' @export
 scrape_package_versions <- function(package_name)
 {
     package_archive <- scrape_package_archive(package_name)

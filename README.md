@@ -33,7 +33,8 @@ We need to do this recursively by checking all dependencies of the package as we
 As an example, consider the {dplyr} package on a date suitable for R version 4.1.1:
 
 ```r
-pptm::install_version('dplyr', date = as.POSIXct('2021-11-01'))
+versions <- pptm::get_version('here', date = as.POSIXct('2021-01-01'))
+pptm::install_version(versions)
 ```
 
 Why choose the date 2021-11-01 for R version 4.1.1? 
@@ -41,5 +42,5 @@ This is the date where R version 4.1.2 was released and hence the last day where
 My usecase is always to use these "last day of R version X being the latest" and to facilitate this `install_version` can take a version of R as argument:
 
 ```r
-pptm::install_version('dplyr', r_version = '4.1.1')
+pptm::get_version('here', r_version = '4.1.1')
 ```

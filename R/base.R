@@ -7,13 +7,11 @@
 #' @param package_names Name of the package(s).
 #'
 #' @return The unique entries in `package_names` without base packages (if any).
-#'
-#' @export
 remove_base_packages <- function(package_names)
 {
     stopifnot(is.character(package_names))
 
-    base_packages_info <- utils::installed.packages(priority = "base")
+    base_packages_info <- utils::installed.packages(priority = 'base')
 
-    setdiff(unique(package_names), base_packages_info[, "Package"])
+    setdiff(unique(package_names), base_packages_info[, 'Package'])
 }
