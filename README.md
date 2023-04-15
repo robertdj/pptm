@@ -1,6 +1,11 @@
 Poor Person's Time Machine
 ==========================
 
+<!-- badges: start -->
+[![R build status](https://github.com/robertdj/pptm/workflows/R-CMD-check/badge.svg)](https://github.com/robertdj/pptm/actions)
+[![Codecov test coverage](https://codecov.io/gh/robertdj/pptm/branch/main/graph/badge.svg)](https://codecov.io/gh/robertdj/pptm?branch=main)
+<!-- badges: end -->
+
 The goal of {pptm} is to provide a way to install packages as the appeared on CRAN on a particular date.
 For instance to ensure that all packages work with the chosen version of R.
 
