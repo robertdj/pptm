@@ -101,8 +101,8 @@ install_version <- function(versions, ...)
     top_packages <- subset(versions, is.na(versions$Parent))
 
     utils::install.packages(
-        pkgs = versions$Filename,
-        repos = NULL,
+        pkgs = versions$Package,
+        repos = paste0('file://', local_cran),
         type = 'source',
         ...
     )
