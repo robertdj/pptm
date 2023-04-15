@@ -41,9 +41,13 @@ get_version_with_deps <- function(local_file, date, package_dir = NULL)
     dependencies_version <- do.call('rbind', list_of_version_dfs)
 
     # TODO Check if package is already downloaded
-    foo <- lapply(dependencies_version$Filename, get_version_with_deps, date = date, package_dir = package_dir)
-    bar <- do.call('rbind', foo)
-    rbind(dependencies_version, bar)
+    recursive_version_with_deps <- lapply(
+        dependencies_version$Filename, get_version_with_deps,
+        date = date, package_dir = package_dir
+    )
+    recursive_version_with_deps_df <- do.call('rbind', recursive_version_with_deps)
+
+    rbind(dependencies_version, recursive_version_with_deps_df)
 }
 
 
@@ -59,15 +63,21 @@ get_version <- function(package_name, date, r_version, package_dir = NULL)
 }
 
 
-install_version <- function(versions)
+install_version <- function(versions, ...)
 {
     download_folder <- unique(dirname(versions$Filename))
     stopifnot(length(download_folder) == 1)
     stopifnot(grepl('/src/contrib$', download_folder))
 
-    local_cran <- substr(download_folder, 1, nzchar(download_folder) - 12)
+    local_cran <- substr(download_folder, 1, nchar(download_folder) - 12)
 
-    tools::write_PACKAGES(local_cran)
+    tools::write_PACKAGES(download_folder)
     top_packages <- subset(versions, is.na(versions$Parent))
-    utils::install.packages(top_packages$Package, repos = paste0('file:', local_cran), type = 'source')
+
+    utils::install.packages(
+        pkgs = versions$Filename,
+        repos = NULL,
+        type = 'source',
+        ...
+    )
 }

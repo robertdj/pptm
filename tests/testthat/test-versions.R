@@ -1,10 +1,8 @@
 test_that('Get single version', {
-    here_package <- create_test_package('here')
-
     package_versions <- mockthat::with_mock(
         get_package_archive_url = get_package_archive_url_mock('here'),
         get_package_url = get_package_url_mock('here'),
-        download_package_version = here_package,
+        download_package_version = function(x, ...) create_test_package(x$PackageName),
         get_single_version('here', date = as.POSIXct('2021-01-01'))
     )
 
@@ -49,4 +47,28 @@ test_that('Get versions', {
 
     targz_ext <- grepl('\\.tar\\.gz$', package_versions$URL)
     expect_true(all(targz_ext))
+})
+
+
+test_that('Install versions', {
+    versions <- mockthat::with_mock(
+        get_package_archive_url = get_package_archive_url_mock('here'),
+        get_package_url = get_package_url_mock('here'),
+        download_package_version = function(x, ...) create_test_package(x$PackageName),
+        get_version('here', date = as.POSIXct('2021-01-01'))
+    )
+
+    cran_path <- unique(dirname(versions$Filename))
+    on.exit(unlink(cran_path, recursive = TRUE), add = TRUE)
+
+    install_dir <- file.path(tempdir(), 'pptm_install_dir')
+    if (!dir.exists(install_dir))
+        dir.create(install_dir, recursive = TRUE)
+    on.exit(unlink(install_dir, recursive = TRUE), add = TRUE)
+
+    install_version(versions, lib = install_dir, quiet = TRUE)
+
+    installed_packages <- installed.packages(install_dir)
+    installed_package_names <- sort(as.character(installed_packages[, 'Package']))
+    expect_equal(sort(versions$Package), installed_package_names)
 })

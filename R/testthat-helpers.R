@@ -4,7 +4,7 @@
 #' @param expected_cols Named vector with entries of the form "`<column name>` = `<column type>`".
 #' For example `c('Foo' = 'character')`.
 #'
-#' @return Invisble `TRUE`. This function is called for its side-effects, which is expectations 
+#' @return Invisble `TRUE`. This function is called for its side-effects, which is expectations
 #' from `testthat`.
 #'
 #' @details See for example <https://blog.r-hub.io/2020/11/18/testthat-utility-belt>
@@ -74,5 +74,10 @@ create_test_package <- function(package_name)
 {
     desc_path <- testthat::test_path('testdata', package_name, 'DESCRIPTION')
     print(desc_path)
-    create_empty_package(desc_path, quiet = TRUE, vignettes = FALSE)
+
+    dest_path <- file.path(tempdir(), 'pptm_test_cran', 'src', 'contrib')
+    if (!dir.exists(dest_path))
+        dir.create(dest_path, recursive = TRUE)
+
+    create_empty_package(desc_path, dest_path = dest_path, quiet = TRUE, vignettes = FALSE)
 }

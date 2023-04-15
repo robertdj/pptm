@@ -17,10 +17,15 @@ download_package_version <- function(package_archive, package_dir = NULL)
     if (is.null(package_dir))
         package_dir <- file.path(tempdir(), 'pptm')
 
-    if (!dir.exists(package_dir))
-        dir.create(package_dir, recursive = TRUE)
+   if (!grepl('/src/contrib$', package_dir))
+       package_dir <- file.path(package_dir, 'src', 'contrib')
 
     local_file <- file.path(package_dir, package_archive$Name)
+    local_file_dir <- dirname(local_file)
+
+    if (!dir.exists(local_file_dir))
+        dir.create(local_file_dir, recursive = TRUE)
+
     if (!file.exists(local_file))
         utils::download.file(package_archive$URL, local_file)
 
