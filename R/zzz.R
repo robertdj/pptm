@@ -1,10 +1,16 @@
 .onLoad <- function(libname, pkgname)
 {
     op <- options()
-    pptm_options <- list(pptm.scrape.cache <- file.path(tempdir(), 'pptm_scrape_cache'))
+    pptm_scrape_cache <- file.path(tempdir(), 'pptm_scrape_cache')
+    pptm_options <- list(pptm.scrape.cache = pptm_scrape_cache)
 
     toset <- !(names(pptm_options) %in% names(op))
-    if (any(toset)) options(pptm_options[toset])
+    if (any(toset)) {
+        if (!dir.exists(pptm_scrape_cache))
+            dir.create(pptm_scrape_cache)
+
+        options(pptm_options[toset])
+    }
 
     invisible()
 }
