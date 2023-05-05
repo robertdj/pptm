@@ -11,7 +11,6 @@ find_package_version <- function(package_archive, date)
 
 download_package_version <- function(package_archive, package_dir = NULL)
 {
-    print('download_package_version')
     stopifnot(nrow(package_archive) == 1)
 
     if (is.null(package_dir))

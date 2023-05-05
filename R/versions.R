@@ -18,7 +18,6 @@ get_single_version <- function(package_name, date, package_dir = NULL, parent = 
 
 get_version_with_deps <- function(local_file, date, package_dir = NULL)
 {
-    print(local_file)
     dependencies <- get_package_imports(local_file)
 
     non_base_deps <- remove_base_packages(dependencies)
