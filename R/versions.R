@@ -30,8 +30,6 @@ get_version_with_deps <- function(local_file, date, package_dir = NULL)
             Filename = character(0)
         ))
 
-    # TODO Don't re-download
-
     package_name <- pkg.peek::get_package_name(local_file)
     list_of_version_dfs <- lapply(
         non_base_deps, get_single_version,
@@ -40,7 +38,6 @@ get_version_with_deps <- function(local_file, date, package_dir = NULL)
 
     dependencies_version <- do.call('rbind', list_of_version_dfs)
 
-    # TODO Check if package is already downloaded
     recursive_version_with_deps <- lapply(
         dependencies_version$Filename, get_version_with_deps,
         date = date, package_dir = package_dir
@@ -51,21 +48,21 @@ get_version_with_deps <- function(local_file, date, package_dir = NULL)
 }
 
 #' Get historical packages
-#' 
+#'
 #' Get a package and its dependencies as they appeared on a particular point in time.
-#' 
+#'
 #' @param package_name Name of the package to install.
 #' @param date Get `package_name` and its dependencies as they appeared on CRAN on `date`.
-#' @param r_version NOT IMPLEMENTED YET. An alternative to `date` is to choose the R version that `package_name` should match. 
-#' This will be the last date where `r_version` was the current R. 
+#' @param r_version NOT IMPLEMENTED YET. An alternative to `date` is to choose the R version that `package_name` should match.
+#' This will be the last date where `r_version` was the current R.
 #' This ensures that all packages have been checked to work with this R version.
 #' @param package_dir Directory where `package_name` and its dependencies are downloaded to. Note that it will contain a valid CRAN.
-#' 
+#'
 #' @return A dataframe with columns `Package`, `Version`, `Parent`, `URL`, `Filename`.
-#' 
+#'
 #' @seealso [install_version()].
-#' 
-#' @export 
+#'
+#' @export
 get_version <- function(package_name, date, r_version, package_dir = NULL)
 {
     package_versions <- get_single_version(package_name, date)
@@ -79,13 +76,13 @@ get_version <- function(package_name, date, r_version, package_dir = NULL)
 
 
 #' Install package as they appeared in the past
-#' 
+#'
 #' @param versions An output from [get_version()].
 #' @param ... Arguments passed on to [install.packages()].
-#' 
+#'
 #' @return The same as [install.packages()].
-#' 
-#' @export 
+#'
+#' @export
 install_version <- function(versions, ...)
 {
     stopifnot(is.data.frame(versions))
