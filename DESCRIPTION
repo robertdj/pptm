@@ -1,6 +1,6 @@
 Package: pptm
 Title: Poor Person's Time Machine
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: person("Robert", "Dahl Jacobsen", role = c("aut", "cre"), email = "cran@dahl-jacobsen.dk")
 Description: Install packages as they appeared in the past. Like the (almost) departed MRAN.
 License: MIT + file LICENSE
