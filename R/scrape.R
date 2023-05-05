@@ -115,9 +115,10 @@ scrape_package_versions <- function(package_name)
 {
     download_dir <- getOption('pptm.scrape.cache')
     downloaded_result <- file.path(download_dir, paste0(package_name, '.RDS'))
-    if (!is.null(download_dir)) {
-        if (file.exists(downloaded_result))
-            return(readRDS(downloaded_result))
+
+    if (!is.null(download_dir) && file.exists(downloaded_result)) {
+        print('Use cache')
+        return(readRDS(downloaded_result))
     }
 
     print('scrape_package_versions')
@@ -126,7 +127,7 @@ scrape_package_versions <- function(package_name)
 
     package_versions <- rbind(package_archive, currrent_package)
 
-    if (!is.null(download_dir)) {
+    if (!file.exists(downloaded_result)) {
         saveRDS(object = package_versions, file = downloaded_result, compress = FALSE)
     }
 
