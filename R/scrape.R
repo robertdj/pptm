@@ -113,8 +113,22 @@ scrape_package_page <- function(package_name)
 #' @return A dataframe with columns `Name` (package name and version) and `LastModified`.
 scrape_package_versions <- function(package_name)
 {
+    download_dir <- getOption('pptm.scrape.cache')
+    downloaded_result <- file.path(download_dir, paste0(package_name, '.RDS'))
+    if (!is.null(download_dir)) {
+        if (file.exists(downloaded_result))
+            return(readRDS(downloaded_result))
+    }
+
+    print('scrape_package_versions')
     package_archive <- scrape_package_archive(package_name)
     currrent_package <- scrape_package_page(package_name)
 
-    rbind(package_archive, currrent_package)
+    package_versions <- rbind(package_archive, currrent_package)
+
+    if (!is.null(download_dir)) {
+        saveRDS(object = package_versions, file = downloaded_result, compress = FALSE)
+    }
+
+    return(package_versions)
 }
