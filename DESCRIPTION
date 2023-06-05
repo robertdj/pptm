@@ -16,7 +16,11 @@ Suggests:
     here,
     pkgbuild,
     mockthat,
-    testthat (>= 3.0.0)
+    rversions,
+    testthat (>= 3.0.0),
+    usethis
 Config/testthat/edition: 3
 Remotes: 
     robertdj/pkg.peek@v0.3.0
+Depends: 
+    R (>= 2.10)
