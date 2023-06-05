@@ -15,7 +15,7 @@ get_version(package_name, date, r_version, package_dir = NULL)
 This will be the last date where \code{r_version} was the current R.
 This ensures that all packages have been checked to work with this R version.}
 
-\item{package_dir}{Directory where \code{package_name} and its dependencies are downloaded to. Note that it will contain a valid CRAN.}
+\item{package_dir}{Directory where \code{package_name} and its dependencies are downloaded to. Note that it will contain a self-contained subset of CRAN.}
 }
 \value{
 A dataframe with columns \code{Package}, \code{Version}, \code{Parent}, \code{URL}, \code{Filename}.

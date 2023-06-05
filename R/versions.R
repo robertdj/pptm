@@ -55,7 +55,7 @@ get_version_with_deps <- function(local_file, date, package_dir = NULL)
 #' @param r_version NOT IMPLEMENTED YET. An alternative to `date` is to choose the R version that `package_name` should match.
 #' This will be the last date where `r_version` was the current R.
 #' This ensures that all packages have been checked to work with this R version.
-#' @param package_dir Directory where `package_name` and its dependencies are downloaded to. Note that it will contain a valid CRAN.
+#' @param package_dir Directory where `package_name` and its dependencies are downloaded to. Note that it will contain a self-contained subset of CRAN.
 #'
 #' @return A dataframe with columns `Package`, `Version`, `Parent`, `URL`, `Filename`.
 #'
