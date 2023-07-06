@@ -26,7 +26,7 @@ test_that('Get versions', {
         get_package_archive_url = get_package_archive_url_mock('here'),
         get_package_url = get_package_url_mock('here'),
         download_package_version = function(x, ...) create_test_package(x$PackageName),
-        get_version('here', date = as.POSIXct('2021-01-01'))
+        get_version('here', date = as.Date('2021-01-01'))
     )
 
     expect_gt(nrow(package_versions), 1L)
@@ -55,7 +55,7 @@ test_that('Install versions', {
         get_package_archive_url = get_package_archive_url_mock('here'),
         get_package_url = get_package_url_mock('here'),
         download_package_version = function(x, ...) create_test_package(x$PackageName),
-        get_version('here', date = as.POSIXct('2021-01-01'))
+        get_version('here', date = as.Date('2021-01-01'))
     )
 
     cran_path <- unique(dirname(versions$Filename))
