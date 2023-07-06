@@ -4,18 +4,18 @@
 \alias{get_version}
 \title{Get historical packages}
 \usage{
-get_version(package_name, date, r_version, package_dir = NULL)
+get_version(package_name, date, r_version = NULL, package_dir = NULL)
 }
 \arguments{
 \item{package_name}{Name of the package to install.}
 
 \item{date}{Get \code{package_name} and its dependencies as they appeared on CRAN on \code{date}.}
 
-\item{r_version}{NOT IMPLEMENTED YET. An alternative to \code{date} is to choose the R version that \code{package_name} should match.
+\item{r_version}{An alternative to \code{date} is to choose the R version that \code{package_name} should match.
 This will be the last date where \code{r_version} was the current R.
 This ensures that all packages have been checked to work with this R version.}
 
-\item{package_dir}{Directory where \code{package_name} and its dependencies are downloaded to. Note that it will contain a valid CRAN.}
+\item{package_dir}{Directory where \code{package_name} and its dependencies are downloaded to. Note that it will contain a self-contained subset of CRAN.}
 }
 \value{
 A dataframe with columns \code{Package}, \code{Version}, \code{Parent}, \code{URL}, \code{Filename}.

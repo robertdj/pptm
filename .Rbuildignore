@@ -3,3 +3,4 @@
 ^LICENSE\.md$
 ^save_requests\.R$
 ^\.lintr$
+^data-raw$
