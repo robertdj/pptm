@@ -64,6 +64,9 @@ get_version_with_deps <- function(local_file, date, package_dir = NULL)
 #' @export
 get_version <- function(package_name, date, r_version, package_dir = NULL)
 {
+    # Later, the last modified time of a package is a POSIXct and that cannot be compared with date
+    date <- as.POSIXct(date)
+
     package_versions <- get_single_version(package_name, date)
 
     local_file <- package_versions$Filename
