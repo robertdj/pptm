@@ -52,7 +52,7 @@ get_version_with_deps <- function(local_file, date, package_dir = NULL)
 #'
 #' @param package_name Name of the package to install.
 #' @param date Get `package_name` and its dependencies as they appeared on CRAN on `date`.
-#' @param r_version NOT IMPLEMENTED YET. An alternative to `date` is to choose the R version that `package_name` should match.
+#' @param r_version An alternative to `date` is to choose the R version that `package_name` should match.
 #' This will be the last date where `r_version` was the current R.
 #' This ensures that all packages have been checked to work with this R version.
 #' @param package_dir Directory where `package_name` and its dependencies are downloaded to. Note that it will contain a self-contained subset of CRAN.
@@ -62,8 +62,11 @@ get_version_with_deps <- function(local_file, date, package_dir = NULL)
 #' @seealso [install_version()].
 #'
 #' @export
-get_version <- function(package_name, date, r_version, package_dir = NULL)
+get_version <- function(package_name, date, r_version = NULL, package_dir = NULL)
 {
+    if (!is.null(r_version))
+        date <- get_r_date(r_version)
+
     # Later, the last modified time of a package is a POSIXct and that cannot be compared with date
     date <- as.POSIXct(date)
 
