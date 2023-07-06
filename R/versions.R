@@ -76,7 +76,9 @@ get_version <- function(package_name, date, r_version = NULL, package_dir = NULL
 
     deps_versions <- get_version_with_deps(local_file, date, dirname(local_file))
 
-    rbind(package_versions, deps_versions)
+    all_packages <- rbind(package_versions, deps_versions)
+
+    unique(all_packages)
 }
 
 
