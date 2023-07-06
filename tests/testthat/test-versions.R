@@ -50,6 +50,18 @@ test_that('Get versions', {
 })
 
 
+test_that('Get versions with R version', {
+    package_versions <- mockthat::with_mock(
+        get_package_archive_url = get_package_archive_url_mock('here'),
+        get_package_url = get_package_url_mock('here'),
+        download_package_version = function(x, ...) create_test_package(x$PackageName),
+        get_version('here', r_version = '4.0.3')
+    )
+
+    expect_gt(nrow(package_versions), 1L)
+})
+
+
 test_that('Install versions', {
     versions <- mockthat::with_mock(
         get_package_archive_url = get_package_archive_url_mock('here'),
