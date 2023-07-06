@@ -38,7 +38,7 @@ We need to do this recursively by checking all dependencies of the package as we
 As an example, consider the {dplyr} package on a date suitable for R version 4.1.1:
 
 ```r
-versions <- pptm::get_version('here', date = as.POSIXct('2021-01-01'))
+versions <- pptm::get_version('here', date = as.Date('2021-01-01'))
 pptm::install_version(versions)
 ```
 
