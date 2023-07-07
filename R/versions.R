@@ -82,15 +82,14 @@ get_version <- function(package_name, date, r_version = NULL, package_dir = NULL
 }
 
 
-#' Install package as they appeared in the past
+#' Make downloaded packages into valid CRAN
 #'
 #' @param versions An output from [get_version()].
-#' @param ... Arguments passed on to [install.packages()].
 #'
-#' @return The same as [install.packages()].
+#' @return The invisible return from `tools::write_PACKAGES()`.
 #'
 #' @export
-install_version <- function(versions, ...)
+make_cran <- function(versions)
 {
     stopifnot(is.data.frame(versions))
     stopifnot(colnames(versions) %in% c('Package', 'Version', 'Parent', 'URL', 'Filename'))
@@ -101,8 +100,21 @@ install_version <- function(versions, ...)
 
     local_cran <- substr(download_folder, 1, nchar(download_folder) - 12)
 
-    tools::write_PACKAGES(download_folder)
-    top_packages <- subset(versions, is.na(versions$Parent))
+    tools::write_PACKAGES(download_folder, type = 'source')
+}
+
+
+#' Install package as they appeared in the past
+#'
+#' @param versions An output from [get_version()].
+#' @param ... Arguments passed on to [install.packages()].
+#'
+#' @return The same as [install.packages()].
+#'
+#' @export
+install_version <- function(versions, ...)
+{
+    make_cran(versions)
 
     utils::install.packages(
         pkgs = unique(versions$Package),
