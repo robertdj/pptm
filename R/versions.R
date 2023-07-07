@@ -70,7 +70,7 @@ get_version <- function(package_name, date, r_version = NULL, package_dir = NULL
     # Later, the last modified time of a package is a POSIXct and that cannot be compared with date
     date <- as.POSIXct(date)
 
-    package_versions <- get_single_version(package_name, date)
+    package_versions <- get_single_version(package_name, date, package_dir = package_dir)
 
     local_file <- package_versions$Filename
 
@@ -79,6 +79,29 @@ get_version <- function(package_name, date, r_version = NULL, package_dir = NULL
     all_packages <- rbind(package_versions, deps_versions)
 
     unique(all_packages)
+}
+
+
+#' Make downloaded packages into valid CRAN
+#'
+#' @param versions An output from [get_version()].
+#'
+#' @return The root folder of the CRAN.
+#'
+#' @export
+make_cran <- function(versions)
+{
+    stopifnot(is.data.frame(versions))
+    stopifnot(colnames(versions) %in% c('Package', 'Version', 'Parent', 'URL', 'Filename'))
+
+    download_folder <- unique(dirname(versions$Filename))
+    stopifnot(length(download_folder) == 1)
+    stopifnot(grepl('/src/contrib$', download_folder))
+
+    tools::write_PACKAGES(download_folder, type = 'source')
+
+    local_cran_folder <- substr(download_folder, 1, nchar(download_folder) - 12)
+    return(local_cran_folder)
 }
 
 
@@ -92,17 +115,7 @@ get_version <- function(package_name, date, r_version = NULL, package_dir = NULL
 #' @export
 install_version <- function(versions, ...)
 {
-    stopifnot(is.data.frame(versions))
-    stopifnot(colnames(versions) %in% c('Package', 'Version', 'Parent', 'URL', 'Filename'))
-
-    download_folder <- unique(dirname(versions$Filename))
-    stopifnot(length(download_folder) == 1)
-    stopifnot(grepl('/src/contrib$', download_folder))
-
-    local_cran <- substr(download_folder, 1, nchar(download_folder) - 12)
-
-    tools::write_PACKAGES(download_folder)
-    top_packages <- subset(versions, is.na(versions$Parent))
+    local_cran <- make_cran(versions)
 
     utils::install.packages(
         pkgs = unique(versions$Package),

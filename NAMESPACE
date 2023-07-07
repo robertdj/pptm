@@ -2,3 +2,4 @@
 
 export(get_version)
 export(install_version)
+export(make_cran)
