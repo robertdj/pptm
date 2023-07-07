@@ -70,7 +70,7 @@ get_version <- function(package_name, date, r_version = NULL, package_dir = NULL
     # Later, the last modified time of a package is a POSIXct and that cannot be compared with date
     date <- as.POSIXct(date)
 
-    package_versions <- get_single_version(package_name, date)
+    package_versions <- get_single_version(package_name, date, package_dir = package_dir)
 
     local_file <- package_versions$Filename
 
