@@ -49,3 +49,12 @@ My usecase is always to use these "last day of R version X being the latest" and
 ```r
 pptm::get_version('here', r_version = '4.1.1')
 ```
+
+
+# A local CRAN
+
+The package files downloaded by `get_version` are saved in the folder structure required to make it a CRAN. 
+To include the required metadata, run `pptm::make_cran(versions)`.
+
+After this, `install.packages` will "just work" if its `repos` argument is the download path -- this is what `install_version` does.
+By construction, it is also a self-contained subset of CRAN, so no extra CRAN-like resources are needed.
