@@ -98,9 +98,10 @@ make_cran <- function(versions)
     stopifnot(length(download_folder) == 1)
     stopifnot(grepl('/src/contrib$', download_folder))
 
-    local_cran <- substr(download_folder, 1, nchar(download_folder) - 12)
-
     tools::write_PACKAGES(download_folder, type = 'source')
+
+    local_cran_folder <- substr(download_folder, 1, nchar(download_folder) - 12)
+    return(local_cran_folder)
 }
 
 
@@ -114,7 +115,7 @@ make_cran <- function(versions)
 #' @export
 install_version <- function(versions, ...)
 {
-    make_cran(versions)
+    local_cran <- make_cran(versions)
 
     utils::install.packages(
         pkgs = unique(versions$Package),
