@@ -2,7 +2,7 @@ Package: pptm
 Title: Poor Person's Time Machine
 Version: 0.0.3
 Authors@R: person("Robert", "Dahl Jacobsen", role = c("aut", "cre"), email = "cran@dahl-jacobsen.dk")
-Description: Install packages as they appeared in the past. Like the (almost) departed MRAN.
+Description: Install packages as they appeared in the past. Like the departed MRAN.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
