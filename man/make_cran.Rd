@@ -10,7 +10,7 @@ make_cran(versions)
 \item{versions}{An output from \code{\link[=get_version]{get_version()}}.}
 }
 \value{
-The invisible return from \code{tools::write_PACKAGES()}.
+The root folder of the CRAN.
 }
 \description{
 Make downloaded packages into valid CRAN

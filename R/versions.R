@@ -86,7 +86,7 @@ get_version <- function(package_name, date, r_version = NULL, package_dir = NULL
 #'
 #' @param versions An output from [get_version()].
 #'
-#' @return The invisible return from `tools::write_PACKAGES()`.
+#' @return The root folder of the CRAN.
 #'
 #' @export
 make_cran <- function(versions)
