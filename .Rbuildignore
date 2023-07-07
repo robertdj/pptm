@@ -1,6 +1,8 @@
 ^pptm\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^README\.md$
+^\.github$
 ^save_requests\.R$
 ^\.lintr$
 ^data-raw$
