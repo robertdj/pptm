@@ -14,7 +14,7 @@ But when using R more seriously I prefer to fix the versions of R as well as the
 (The [{renv} package](https://rstudio.github.io/renv) can keep track of the versions, but AFAIK not find historical versions that match.)
 
 For many moons I have relied on [Microsoft's MRAN](https://mran.microsoft.com) to provide such a time machine.
-However, this service soon comes to an end and I need an alternative.
+However, this service has come to an end and I need an alternative.
 One could start making copies of CRAN just like MRAN or use Posit's Package Manager, but as its name suggests this package is for people who want a cheaper option.
 
 
@@ -35,7 +35,7 @@ Furthermore, CRAN keeps an archive of previous versions, but only in source code
 {pptm} looks through a package's archive and picks the version that was current at a specified date.
 We need to do this recursively by checking all dependencies of the package as well.
 
-As an example, consider the {dplyr} package on a date suitable for R version 4.1.1:
+As an example, consider the {here} package on a date suitable for R version 4.1.1:
 
 ```r
 versions <- pptm::get_version('here', date = as.Date('2021-01-01'))
