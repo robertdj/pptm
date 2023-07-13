@@ -46,11 +46,11 @@ get_version_with_deps <- function(local_file, date, package_dir = NULL)
     rbind(dependencies_version, recursive_version_with_deps_df)
 }
 
-#' Get historical packages
+#' Get historical versions of packages
 #'
-#' Get a package and its dependencies as they appeared on a particular point in time.
+#' Get package(s) and their dependencies as they appeared on a particular point in time.
 #'
-#' @param package_name Name of the package to install.
+#' @param package_name Name(s) of the package to install.
 #' @param date Get `package_name` and its dependencies as they appeared on CRAN on `date`.
 #' @param r_version An alternative to `date` is to choose the R version that `package_name` should match.
 #' This will be the last date where `r_version` was the current R.
@@ -70,15 +70,25 @@ get_version <- function(package_name, date, r_version = NULL, package_dir = NULL
     # Later, the last modified time of a package is a POSIXct and that cannot be compared with date
     date <- as.POSIXct(date)
 
+    individual_package_versions <- lapply(package_name, get_version_single_package, date, package_dir)
+    all_packages <- do.call('rbind', individual_package_versions)
+
+    unique(all_packages)
+}
+
+
+get_version_single_package <- function(package_name, date, package_dir)
+{
+    stopifnot(is.character(package_name) && nzchar(package_name) > 0)
+    stopifnot(inherits(date, 'POSIXct'))
+
     package_versions <- get_single_version(package_name, date, package_dir = package_dir)
 
     local_file <- package_versions$Filename
 
     deps_versions <- get_version_with_deps(local_file, date, dirname(local_file))
 
-    all_packages <- rbind(package_versions, deps_versions)
-
-    unique(all_packages)
+    rbind(package_versions, deps_versions)
 }
 
 

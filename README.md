@@ -13,7 +13,7 @@ On a day-to-day basis it probably works well enough to use the fluent versions t
 But when using R more seriously I prefer to fix the versions of R as well as the packages in use.
 (The [{renv} package](https://rstudio.github.io/renv) can keep track of the versions, but AFAIK not find historical versions that match.)
 
-For many moons I have relied on [Microsoft's MRAN](https://mran.microsoft.com) to provide such a time machine.
+For many moons I have relied on Microsoft's departed MRAN to provide such a time machine.
 However, this service has come to an end and I need an alternative.
 One could start making copies of CRAN just like MRAN or use Posit's Package Manager, but as its name suggests this package is for people who want a cheaper option.
 
