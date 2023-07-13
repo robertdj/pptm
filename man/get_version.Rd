@@ -2,12 +2,12 @@
 % Please edit documentation in R/versions.R
 \name{get_version}
 \alias{get_version}
-\title{Get historical packages}
+\title{Get historical versions of packages}
 \usage{
 get_version(package_name, date, r_version = NULL, package_dir = NULL)
 }
 \arguments{
-\item{package_name}{Name of the package to install.}
+\item{package_name}{Name(s) of the package to install.}
 
 \item{date}{Get \code{package_name} and its dependencies as they appeared on CRAN on \code{date}.}
 
@@ -21,7 +21,7 @@ This ensures that all packages have been checked to work with this R version.}
 A dataframe with columns \code{Package}, \code{Version}, \code{Parent}, \code{URL}, \code{Filename}.
 }
 \description{
-Get a package and its dependencies as they appeared on a particular point in time.
+Get package(s) and their dependencies as they appeared on a particular point in time.
 }
 \seealso{
 \code{\link[=install_version]{install_version()}}.
