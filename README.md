@@ -11,11 +11,13 @@ For instance to ensure that all packages work with the chosen version of R.
 
 On a day-to-day basis it probably works well enough to use the fluent versions that comes with `install.packages` (that is, always installing the newest version) -- even though we potentially experience incompatible package versions.
 But when using R more seriously I prefer to fix the versions of R as well as the packages in use.
-(The [{renv} package](https://rstudio.github.io/renv) can keep track of the versions, but AFAIK not find historical versions that match.)
 
 For many moons I have relied on Microsoft's departed MRAN to provide such a time machine.
 However, this service has come to an end and I need an alternative.
 One could start making copies of CRAN just like MRAN or use Posit's Package Manager, but as its name suggests this package is for people who want a cheaper option.
+
+For completeness I should mention that the [{renv} package](https://rstudio.github.io/renv) offer [similar capabilities](https://rstudio.github.io/renv/reference/checkout.html) using Posit's public Package Manager.
+I learned of this from [the "renv 1.0.0" blog post](https://posit.co/blog/renv-1-0-0) published after I made {pptm}.
 
 
 # Installation
@@ -49,6 +51,11 @@ My usecase is always to use these "last day of R version X being the latest" and
 ```r
 pptm::get_version('here', r_version = '4.1.1')
 ```
+
+
+# Docker
+
+For examples of how to use {pptm} in Docker images check out my [Dockerfiles for R](https://github.com/robertdj/r-dockerfiles).
 
 
 # A local CRAN
